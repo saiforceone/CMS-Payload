@@ -66,7 +66,89 @@ export default buildConfig({
   }),
   // database-adapter-config-end
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Pages, Posts, Projects, Media, Categories, Users, Comments],
+  collections: [
+    Pages,
+    Posts,
+    Projects,
+    Media,
+    Categories,
+    Users,
+    Comments,
+
+    {
+      slug: 'topics',
+      admin: {
+        useAsTitle: 'title',
+        defaultColumns: ['title', 'updatedAt', 'createdAt'],
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'content',
+          type: 'relationship',
+          relationTo: 'contentItems',
+          hasMany: true,
+        },
+      ],
+    },
+    {
+      slug: 'contentItems',
+      admin: {
+        useAsTitle: 'title',
+        defaultColumns: ['title', 'updatedAt', 'createdAt'],
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'content',
+          type: 'richText',
+          required: true,
+        },
+        {
+          name: 'date',
+          type: 'date',
+          required: true,
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        {
+          name: 'video',
+          type: 'text',
+        },
+        {
+          name: 'links',
+          type: 'array',
+          fields: [
+            {
+              name: 'link',
+              type: 'text',
+            },
+          ],
+        },
+      ],
+    },
+  ],
   globals: [Settings, Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
