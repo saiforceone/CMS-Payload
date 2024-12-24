@@ -8,8 +8,7 @@
 
 <p align="center">
   <a href="#Requirements"><strong>Requirements</strong></a> ·
-  <a href="#Install and Run"><strong>Quick Start</strong></a> ·
-
+  <a href="#Quick Start"><strong>Quick Start</strong></a> 
 </p>
 <br/>
 
