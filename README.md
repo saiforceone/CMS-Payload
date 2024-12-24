@@ -1,60 +1,72 @@
-# Payload Website Template
+<h1 align="center">Payload CMS</h1>
 
-This is the official [Payload Website Template](https://github.com/payloadcms/payload/blob/main/templates/website). Use it to power websites, blogs, or portfolios from small to enterprise. This repo includes a fully-working backend, enterprise-grade admin panel, and a beautifully designed, production-ready website.
+<h3 align="center">
+ Reconciliation Road Challenge
+</h3>
 
-This template is right for you if you are working on:
+<br/>
 
-- A personal or enterprise-grade website, blog, or portfolio
-- A content publishing platform with a fully featured publication workflow
-- A lead generation website with premium content gated behind authentication
+<p align="center">
+  <a href="#Requirements"><strong>Requirements</strong></a> ·
+  <a href="#Install and Run"><strong>Quick Start</strong></a> ·
 
-Core features:
+</p>
+<br/>
 
-- [Pre-configured Payload Config](#how-it-works)
-- [Authentication](#users-authentication)
-- [Access Control](#access-control)
-- [Premium Content](#premium-content)
-- [Comments](#comments)
-- [Layout Builder](#layout-builder)
-- [Draft Preview](#draft-preview)
-- [Redirects](#redirects)
-- [SEO](#seo)
-- [Website](#website)
+# Project Overview
+The CMS Payload is where we store content to serve the LMS (Learning Management Service). This CMS acts as a database that provides us with custom structures for the LMS such as topic unit and topic content. 
 
-## Quick Start
+# Requirements
+- Node.js >= 18.17.0
+- Docker
+
+# Quick Start
 
 To spin up this example locally, follow these steps:
 
-### Clone
+1. Clone
 
-If you have not done so already, you need to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+   If you have not done so already, you need to have a standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+   #### Method 1 (recommended)
+   Go to Payload Cloud and [clone this template](https://payloadcms.com/new/clone/website). This will create a new repository on your GitHub account with this template's code which you can then clone to your own machine.
 
-#### Method 1 (recommended)
+   #### Method 2
+   Use the `create-payload-app` CLI to clone this template directly to your machine:
 
-  Go to Payload Cloud and [clone this template](https://payloadcms.com/new/clone/website). This will create a new repository on your GitHub account with this template's code which you can then clone to your own machine.
+    npx create-payload-app@latest my-project -t websit
 
-#### Method 2
+   #### Method 3
+   Use the `git` CLI to clone this template directly to your machine:
 
-  Use the `create-payload-app` CLI to clone this template directly to your machine:
+   git clone -n --depth=1 --filter=tree:0 https://github.com/payloadcms/payload my-project && cd my-project && git sparse-checkout set --no-cone templates/website && git checkout && rm -rf .git && git init && git add . && git mv -f templates/website/{.,}* . && git add . && git commit -m "Initial commit"
 
-    npx create-payload-app@latest my-project -t website
+2. `cp .env.example .env` to copy the example environment variables
+3. `yarn` to install dependencies
+4. `docker-compose up` to fetch containers and run them (one is a MongoDB container, and one is a container created from the source code of this project)
+5. Seed the CMS:
 
-#### Method 3
+   To seed the database with a few pages, posts, and projects you can run `yarn seed`. This template also comes with a `GET /api/seed` endpoint you can use to seed the database from the admin panel.
+   The seed script will also create two users for demonstration purposes only:
+   1. Demo Author
+      - Email: `demo-author@payloadcms.com`
+      - Password: `password`
+      - Role: `admin`
+   2. Demo User
+      - Email: `demo-user@payloadcms.com`
+      - Password: `password`
+      - Role: `user`
 
-  Use the `git` CLI to clone this template directly to your machine:
+> NOTICE: seeding the database is destructive because it drops your current database to populate a fresh one from the seed template. Only run this command if you are starting a new project or can afford to lose your current data.
 
-    git clone -n --depth=1 --filter=tree:0 https://github.com/payloadcms/payload my-project && cd my-project && git sparse-checkout set --no-cone templates/website && git checkout && rm -rf .git && git init && git add . && git mv -f templates/website/{.,}* . && git add . && git commit -m "Initial commit"
+# Production
 
-### Development
+To run Payload in production, you need to build and serve the Admin panel. To do so, follow these steps:
 
-1. First [clone the repo](#clone) if you have not done so already
-1. `cd my-project && cp .env.example .env` to copy the example environment variables
-1. `yarn && yarn dev` to install dependencies and start the dev server
-1. `open http://localhost:3000` to open the app in your browser
+1. Invoke the `payload build` script by running `yarn build` or `npm run build` in your project root. This creates a `./build` directory with a production-ready admin bundle.
+1. Finally run `yarn serve` or `npm run serve` to run Node in production and serve Payload from the `./build` directory.
+1. When you're ready to go live, see [Deployment](#deployment) for more details.
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
-
-## How it works
+# How it works
 
 The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
 
@@ -209,43 +221,6 @@ If you prefer another front-end framework or would like to use Payload as a stan
 
 For more details on how setup a custom server, see the official [Custom Server Example](https://github.com/payloadcms/payload/tree/main/examples/custom-server).
 
-##  Development
-
-To spin up this example locally, follow the [Quick Start](#quick-start). Then [Seed](#seed) the database with a few pages, posts, and projects.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-### Seed
-
-To seed the database with a few pages, posts, and projects you can run `yarn seed`. This template also comes with a `GET /api/seed` endpoint you can use to seed the database from the admin panel.
-
-The seed script will also create two users for demonstration purposes only:
-1. Demo Author
-    - Email: `demo-author@payloadcms.com`
-    - Password: `password`
-    - Role: `admin`
-2. Demo User
-    - Email: `demo-user@payloadcms.com`
-    - Password: `password`
-    - Role: `user`
-
-> NOTICE: seeding the database is destructive because it drops your current database to populate a fresh one from the seed template. Only run this command if you are starting a new project or can afford to lose your current data.
-
-## Production
-
-To run Payload in production, you need to build and serve the Admin panel. To do so, follow these steps:
-
-1. Invoke the `payload build` script by running `yarn build` or `npm run build` in your project root. This creates a `./build` directory with a production-ready admin bundle.
-1. Finally run `yarn serve` or `npm run serve` to run Node in production and serve Payload from the `./build` directory.
-1. When you're ready to go live, see [Deployment](#deployment) for more details.
 
 ### Deployment
 
