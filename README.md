@@ -68,11 +68,13 @@ To run Payload in production, you need to build and serve the Admin panel. To do
 
 # How it works
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+### We only use these collections to develop the CBH LMS app
+- #### Topics
+  This is where the CMS stores Topics. A Topic can be created here and we can assign Content Items to the Topic we want to. We can understand a Topic as a course unit that has many course contents (Content Items) and we can choose which content we want to be in a created unit.
+- #### Content Items
+  This is where the CMS stores all of its course content. We can create a new Content Item here using the schema provided by the CMS.
 
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+### The below Collections and Globals are just for show and we may remove them in the future
 
 - #### Users (Authentication)
 
