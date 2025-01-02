@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="#Requirements"><strong>Requirements</strong></a> ·
-  <a href="#Quick-Start"><strong>Quick Start</strong></a> 
+  <a href="#Quick-Start"><strong>Quick Start</strong></a> ·
   <a href="#How-it-works"><strong>How it works</strong></a> 
 </p>
 <br/>
