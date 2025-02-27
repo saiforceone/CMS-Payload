@@ -23,9 +23,7 @@ const Users: CollectionConfig = {
   hooks: {
     afterChange: [loginAfterCreate],
   },
-  auth: {
-    useAPIKey: true,
-  },
+  auth: true,
   fields: [
     {
       name: 'name',
