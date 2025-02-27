@@ -14,21 +14,26 @@ services:
       - mongo
     env_file:
       - .env
-
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.builder-1-hackathon-payload-cms-37abe4-31-web.rule=Host(`builder-1-hackathon-payload-cms-37abe4-2dd2fb-34-28-188-207.traefik.me`)
+      - traefik.http.routers.builder-1-hackathon-payload-cms-37abe4-31-web.entrypoints=web
+      - traefik.http.services.builder-1-hackathon-payload-cms-37abe4-31-web.loadbalancer.server.port=3001
+      - traefik.http.routers.builder-1-hackathon-payload-cms-37abe4-31-web.service=builder-1-hackathon-payload-cms-37abe4-31-web
     networks:
       # app-network:
       - dokploy-network
 
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
+  # mongo:
+  #   image: mongo:latest
+  #   ports:
+  #     - '27017:27017'
+  #   command:
+  #     - --storageEngine=wiredTiger
+  #   volumes:
+  #     - data:/data/db
+  #   logging:
+  #     driver: none
     # networks:
     #   app-network:
     #     ipv4_address: 192.168.0.2
