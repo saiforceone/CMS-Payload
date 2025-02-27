@@ -44,7 +44,7 @@ volumes:
 
 networks:
   dokploy-network:
-  external: true
+    external: true
   # app-network:
   #   driver: bridge
   #   ipam:
